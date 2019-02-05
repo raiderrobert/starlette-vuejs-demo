@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <title>Chat</title>
+  </head>
+
+  <body>
+    <p>
+        Hey there!
+    </p>
+    <p>
+        <div id="app">
+            <button v-on:click="postVote">Vote</button>
+            <button v-on:click="getVote">What's the current Vote?</button>
+            <p>The button above has been clicked [[ total ]] times.</p>
+          </div>
+    </p>
+    <script>
+        var app = new Vue({
+            delimiters: ['[[', ']]'],
+            el: '#app',
+            data: {
+                total: 0
+            },
+            http: {
+                root: 'http://localhost:8000/',
+            },
+            methods: {
+                getVote: function () {
+                    this.$http.get('vote_total').then(function (data) {
+                        this.total = data.body.total;
+                    })
+                },
+                postVote: function (event) {
+                    this.$http.post('cast_vote').then(function (response) {
+                    })
+                }
+            }
+        })
+    </script>
+  </body>
+</html>
