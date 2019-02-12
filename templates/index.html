@@ -56,9 +56,7 @@
             var data = JSON.parse(message.data);
             app.total = data.total;
             app.me = data.me.replace(/-/g, " ");
-
             everyone = data.everyone.map(x => x.replace(/-/g, " "));
-            
             app.everyone = everyone;
         };
         
