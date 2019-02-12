@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "54f85be665f0ec640a89019b89702e3dff6881643d49351376281286c814324e"
+            "sha256": "2a34f0f7659601b77e010da1be87c15f8f409e1f6f85cf07580af87bc22961d5"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -71,6 +71,14 @@
                 "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
             ],
             "version": "==7.0"
+        },
+        "coolname": {
+            "hashes": [
+                "sha256:410fe6ea9999bf96f2856ef0c726d5f38782bbefb7bb1aca0e91e0dc98ed09e3",
+                "sha256:e6a83a0ac88640f4f3d2070438dbe112fe80cfebc119c93bd402976ec84c0978"
+            ],
+            "index": "pypi",
+            "version": "==1.1.0"
         },
         "graphene": {
             "hashes": [
@@ -220,10 +228,10 @@
                 "full"
             ],
             "hashes": [
-                "sha256:7cc05c33d00db3b2ddfd7516a737544ed0a34c9dd0ced94076f29b581ce4f532"
+                "sha256:3e00d374ea3008910c4fe662edb592236d26f5db4b50b96cd64954660ef7ddac"
             ],
             "index": "pypi",
-            "version": "==0.10.1"
+            "version": "==0.10.2"
         },
         "ujson": {
             "hashes": [
@@ -240,10 +248,10 @@
         },
         "uvicorn": {
             "hashes": [
-                "sha256:93a8ec74f37ac1071ffc88e99cf7961701582426ca25689e7539f84d1bc57b99"
+                "sha256:e84fc3b1e142cec395fb7c1d1a9f3cdc0d455037b96e1bed54b378db1121aaba"
             ],
             "index": "pypi",
-            "version": "==0.4.2"
+            "version": "==0.4.3"
         },
         "uvloop": {
             "hashes": [

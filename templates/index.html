@@ -8,18 +8,21 @@
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
     <script src=https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js></script>
-    <title>Chat</title>
+    <title>Voter</title>
   </head>
 
   <body>
     <p>
-        Hey there!
-    </p>
-    <p>
         <div id="app">
+            <h1>Hi [[me]]</h2>
             <button v-on:click="postVote">Vote</button>
             <button v-on:click="getVote">What's the current Vote?</button>
             <p>The button above has been clicked [[ total ]] times.</p>
+            <p>
+                <i>Some other people hanging around...</i>
+                <br><span v-for="person in everyone"  v-if="person != me">
+                [[person]]
+            </span></p>
           </div>
     </p>
     <script>
@@ -35,7 +38,9 @@
             delimiters: ['[[', ']]'],
             el: '#app',
             data: {
-                total: 0
+                total: 0,
+                me: '',
+                everyone: []
             },
             http: {
                 root: '/',
@@ -55,7 +60,12 @@
 
         inbox.onmessage = function(message) {
             var data = JSON.parse(message.data);
-            app.total = data;
+            app.total = data.total;
+            app.me = data.me.replace(/-/g, " ");
+
+            everyone = data.everyone.map(x => x.replace(/-/g, " "));
+            
+            app.everyone = everyone;
         };
         
     </script>

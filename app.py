@@ -1,13 +1,17 @@
 from starlette.applications import Starlette
 from starlette.staticfiles import StaticFiles
 from starlette.responses import HTMLResponse, JSONResponse
+from websockets.exceptions import ConnectionClosed
 import uvicorn
 import asyncio
+from coolname import generate_slug
+import json
 
 
 app = Starlette(debug=True, template_directory='templates')
 
 VOTES = []
+CLIENTS = []
 
 @app.route('/')
 async def homepage(request):
@@ -28,10 +32,19 @@ async def cast_vote(request):
 async def receive(ws):
     await ws.accept()
 
-    while ws.client_state.CONNECTED:
-        await ws.send_text(f'{sum(VOTES)}')
-        await asyncio.sleep(1)
-    
+    name = generate_slug(2)
+    CLIENTS.append(name)
+    try:
+        while ws.client_state.CONNECTED and ws.application_state.CONNECTED:
+            await ws.send_text(json.dumps({
+                'me': name,
+                'total': sum(VOTES),
+                'everyone': CLIENTS
+            }))
+            await asyncio.sleep(1)
+    except ConnectionClosed:
+        pass
+    CLIENTS.remove(name)
     await ws.close()
 
 if __name__ == '__main__':
