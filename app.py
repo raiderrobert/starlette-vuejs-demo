@@ -5,7 +5,6 @@ import uvicorn
 
 
 app = Starlette(debug=True, template_directory='templates')
-app.mount('/static', StaticFiles(directory='statics'), name='static')
 
 VOTES = []
 
