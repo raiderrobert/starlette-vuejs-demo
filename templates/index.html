@@ -19,9 +19,11 @@
             <p>The button above has been clicked [[ total ]] times.</p>
             <p>
                 <i>Some other people hanging around...</i>
-                <br><span v-for="person in everyone"  v-if="person != me">
-                [[person]]
-            </span></p>
+                <br>
+                <span v-for="person in everyone"  v-if="person != me">
+                    [[person]]
+                    <span v-if="index !== last">, </span>
+                </span></p>
           </div>
     </p>
     <script>
@@ -49,7 +51,12 @@
                     this.$http.post('cast_vote').then(function (response) {
                     })
                 }
-            }
+            },
+            computed: {
+                last_everyone(){
+                return Object.keys(this.everyone.filter(function(e) { return e !== this.me })).length-1;
+                }
+            },
         })
 
         inbox.onmessage = function(message) {
