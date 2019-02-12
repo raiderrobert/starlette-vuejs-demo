@@ -45,11 +45,6 @@
                 root: '/',
             },
             methods: {
-                getVote: function () {
-                    this.$http.get('vote_total').then(function (data) {
-                        this.total = data.body.total;
-                    })
-                },
                 postVote: function (event) {
                     this.$http.post('cast_vote').then(function (response) {
                     })

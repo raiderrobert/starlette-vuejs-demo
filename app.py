@@ -19,10 +19,6 @@ async def homepage(request):
     content = template.render(request=request)
     return HTMLResponse(content)
 
-@app.route('/vote_total', methods=['GET'])
-async def vote_total(request):
-    return JSONResponse({'total': sum(VOTES)})
-
 @app.route('/cast_vote', methods=['POST'])
 async def cast_vote(request):
     VOTES.append(1)
