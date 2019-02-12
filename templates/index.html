@@ -7,6 +7,7 @@
     <meta name="author" content="">
     <script src="https://cdn.jsdelivr.net/npm/vue"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <script src=https://cdnjs.cloudflare.com/ajax/libs/reconnecting-websocket/1.0.0/reconnecting-websocket.min.js></script>
     <title>Chat</title>
   </head>
 
@@ -22,6 +23,14 @@
           </div>
     </p>
     <script>
+        if (window.location.protocol == "https:") {
+        var ws_scheme = "wss://";
+        } else {
+        var ws_scheme = "ws://"
+        };
+
+        var inbox = new ReconnectingWebSocket(ws_scheme + location.host + "/receive");
+
         var app = new Vue({
             delimiters: ['[[', ']]'],
             el: '#app',
@@ -29,7 +38,7 @@
                 total: 0
             },
             http: {
-                root: 'http://localhost:8000/',
+                root: 'http://127.0.0.1:8000/',
             },
             methods: {
                 getVote: function () {
@@ -43,6 +52,12 @@
                 }
             }
         })
+
+        inbox.onmessage = function(message) {
+            var data = JSON.parse(message.data);
+            app.total = data;
+        };
+        
     </script>
   </body>
 </html>
